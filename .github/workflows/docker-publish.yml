@@ -1,0 +1,46 @@
+name: Build and Push Docker Images
+
+# WHEN this workflow runs:
+on:
+  push:
+    branches: [main]          # runs automatically every time you push to main
+  workflow_dispatch: {}       # also lets you click "Run workflow" manually on GitHub
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest     # GitHub gives us a fresh Ubuntu VM to do the work on
+
+    # Build all 4 of your services in this one job, one after another per matrix entry
+    strategy:
+      matrix:
+        service:
+          - name: mcp-server
+            context: ./services/mcp-server
+          - name: agent-system-a
+            context: ./services/agent-system-a
+          - name: agent-system-b
+            context: ./services/agent-system-b
+          - name: chatbot-ui
+            context: ./services/chatbot-ui
+
+    steps:
+      # Step 1: copy your repo's code onto the runner VM (it starts empty)
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      # Step 2: log in to Docker Hub using the secrets you stored
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Step 3: build this matrix entry's image and push it to Docker Hub
+      - name: Build and push ${{ matrix.service.name }}
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.service.context }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/vda5050-${{ matrix.service.name }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vda5050-${{ matrix.service.name }}:${{ github.sha }}
