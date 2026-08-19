@@ -1,1 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+
 /.env
+
+/data/checkpoints.db
+/data/conversations.db
+/data/user_uploads/
+/data/chunks.pkl
