@@ -1,0 +1,89 @@
+{
+  "k": 3,
+  "progression": [
+    {
+      "config_name": "01_naive_500_ov0",
+      "retriever_kind": "dense",
+      "hypothesis": "Baseline: does plain fixed-size chunking with no overlap even work?",
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.5555,
+        "mean_recall_at_k": 0.8333,
+        "mean_mrr": 0.8056,
+        "mean_ndcg_at_k": 0.8163
+      },
+      "narrative": "Starting point. Precision@3=0.5555, NDCG@3=0.8163."
+    },
+    {
+      "config_name": "02_naive_500_ov100",
+      "retriever_kind": "dense",
+      "hypothesis": "Does adding chunk overlap fix boundary cases where the answer straddles two chunks?",
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.5185,
+        "mean_recall_at_k": 0.8333,
+        "mean_mrr": 0.8056,
+        "mean_ndcg_at_k": 0.8084
+      },
+      "narrative": "vs. '01_naive_500_ov0': Precision@3 -0.037, Recall@3 +0.000, NDCG@3 -0.008 -> REGRESSED. Decision: this change made things worse -- flagged for the write-up."
+    },
+    {
+      "config_name": "03_naive_1000_ov100",
+      "retriever_kind": "dense",
+      "hypothesis": "Does a larger chunk size (more context per chunk, fewer chunks) help or just dilute relevance?",
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.5185,
+        "mean_recall_at_k": 0.8333,
+        "mean_mrr": 0.8333,
+        "mean_ndcg_at_k": 0.8333
+      },
+      "narrative": "vs. '02_naive_500_ov100': Precision@3 +0.000, Recall@3 +0.000, NDCG@3 +0.025 -> IMPROVED. Decision: kept this change going forward."
+    },
+    {
+      "config_name": "04_structure_aware_dense",
+      "retriever_kind": "dense",
+      "hypothesis": "Does structure-aware chunking (Markdown headers, JSON-schema parent-child) beat naive fixed-size, holding retrieval (dense-only) constant?",
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.5741,
+        "mean_recall_at_k": 0.8333,
+        "mean_mrr": 0.8056,
+        "mean_ndcg_at_k": 0.8163
+      },
+      "narrative": "vs. '03_naive_1000_ov100': Precision@3 +0.056, Recall@3 +0.000, NDCG@3 -0.017 -> IMPROVED. Decision: kept this change going forward."
+    },
+    {
+      "config_name": "05_structure_aware_hybrid",
+      "retriever_kind": "hybrid",
+      "hypothesis": "Does adding BM25 (keyword) search alongside dense search help on the exact-term queries (error type names, schema field names)?",
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.4815,
+        "mean_recall_at_k": 0.7222,
+        "mean_mrr": 0.6296,
+        "mean_ndcg_at_k": 0.6445
+      },
+      "narrative": "vs. '04_structure_aware_dense': Precision@3 -0.093, Recall@3 -0.111, NDCG@3 -0.172 -> REGRESSED. Decision: this change made things worse -- flagged for the write-up."
+    },
+    {
+      "config_name": "06_structure_aware_hybrid_rerank",
+      "retriever_kind": "hybrid_rerank",
+      "hypothesis": "Does adding the cross-encoder reranker on top of hybrid retrieval improve ranking quality (NDCG specifically)? This is the INTENDED design.",
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.6481,
+        "mean_recall_at_k": 0.8889,
+        "mean_mrr": 0.8611,
+        "mean_ndcg_at_k": 0.8684
+      },
+      "narrative": "vs. '05_structure_aware_hybrid': Precision@3 +0.167, Recall@3 +0.167, NDCG@3 +0.224 -> IMPROVED. Decision: kept this change going forward."
+    },
+    {
+      "config_name": "07_deployed_dense_only_conversation_id",
+      "retriever_kind": "deployed_dense_conv",
+      "hypothesis": "What does the system ACTUALLY serve today, since every specialist call now passes conversation_id and get_retriever() silently drops to dense-only in that branch? This is the deployed-reality check against config 06's intended design.",
+      "aggregate_metrics": {
+        "mean_precision_at_k": 0.5741,
+        "mean_recall_at_k": 0.8333,
+        "mean_mrr": 0.8056,
+        "mean_ndcg_at_k": 0.8163
+      },
+      "narrative": "vs. '06_structure_aware_hybrid_rerank': Precision@3 -0.074, Recall@3 -0.056, NDCG@3 -0.052 -> REGRESSED. Decision: this change made things worse -- flagged for the write-up."
+    }
+  ]
+}

@@ -1,0 +1,511 @@
+{
+  "comparison": "top-K=3 vs top-K=5, hybrid+rerank retriever",
+  "k3": {
+    "mean_precision_at_k": 0.6481,
+    "mean_recall_at_k": 0.8889,
+    "mean_mrr": 0.8611,
+    "mean_ndcg_at_k": 0.8684
+  },
+  "k5": {
+    "mean_precision_at_k": 0.6556,
+    "mean_recall_at_k": 0.9444,
+    "mean_mrr": 0.875,
+    "mean_ndcg_at_k": 0.8656
+  },
+  "delta_k5_minus_k3": {
+    "precision_at_k": 0.0075,
+    "recall_at_k": 0.0555,
+    "mrr": 0.0139,
+    "ndcg_at_k": -0.0028
+  },
+  "k3_full": {
+    "k": 3,
+    "aggregate_metrics": {
+      "mean_precision_at_k": 0.6481,
+      "mean_recall_at_k": 0.8889,
+      "mean_mrr": 0.8611,
+      "mean_ndcg_at_k": 0.8684
+    },
+    "per_query": [
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q01"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q02"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q03"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q04"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q05"
+      },
+      {
+        "precision_at_k": 0.6667,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          0
+        ],
+        "question_id": "q06"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q07"
+      },
+      {
+        "precision_at_k": 0.3333,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          0,
+          0
+        ],
+        "question_id": "q08"
+      },
+      {
+        "precision_at_k": 0.6667,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          0
+        ],
+        "question_id": "q09"
+      },
+      {
+        "precision_at_k": 0.3333,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "ndcg_at_k": 0.6309,
+        "relevance_pattern": [
+          0,
+          1,
+          0
+        ],
+        "question_id": "q10"
+      },
+      {
+        "precision_at_k": 0.3333,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          0,
+          0
+        ],
+        "question_id": "q11"
+      },
+      {
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_k": 0.0,
+        "relevance_pattern": [
+          0,
+          0,
+          0
+        ],
+        "question_id": "q12"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q13"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1
+        ],
+        "question_id": "q14"
+      },
+      {
+        "precision_at_k": 0.3333,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          0,
+          0
+        ],
+        "question_id": "q15"
+      },
+      {
+        "precision_at_k": 0.3333,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          0,
+          0
+        ],
+        "question_id": "q16"
+      },
+      {
+        "precision_at_k": 0.6667,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          0
+        ],
+        "question_id": "q17"
+      },
+      {
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_k": 0.0,
+        "relevance_pattern": [
+          0,
+          0,
+          0
+        ],
+        "question_id": "q18"
+      }
+    ]
+  },
+  "k5_full": {
+    "k": 5,
+    "aggregate_metrics": {
+      "mean_precision_at_k": 0.6556,
+      "mean_recall_at_k": 0.9444,
+      "mean_mrr": 0.875,
+      "mean_ndcg_at_k": 0.8656
+    },
+    "per_query": [
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "question_id": "q01"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "question_id": "q02"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "question_id": "q03"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "question_id": "q04"
+      },
+      {
+        "precision_at_k": 0.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 0.9829,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        "question_id": "q05"
+      },
+      {
+        "precision_at_k": 0.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 0.9558,
+        "relevance_pattern": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "question_id": "q06"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "question_id": "q07"
+      },
+      {
+        "precision_at_k": 0.2,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "question_id": "q08"
+      },
+      {
+        "precision_at_k": 0.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 0.9558,
+        "relevance_pattern": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "question_id": "q09"
+      },
+      {
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "ndcg_at_k": 0.6509,
+        "relevance_pattern": [
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "question_id": "q10"
+      },
+      {
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 0.8772,
+        "relevance_pattern": [
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "question_id": "q11"
+      },
+      {
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_k": 0.0,
+        "relevance_pattern": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "question_id": "q12"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "question_id": "q13"
+      },
+      {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "question_id": "q14"
+      },
+      {
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 0.8772,
+        "relevance_pattern": [
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "question_id": "q15"
+      },
+      {
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 0.8503,
+        "relevance_pattern": [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "question_id": "q16"
+      },
+      {
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "relevance_pattern": [
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "question_id": "q17"
+      },
+      {
+        "precision_at_k": 0.2,
+        "recall_at_k": 1.0,
+        "mrr": 0.25,
+        "ndcg_at_k": 0.4307,
+        "relevance_pattern": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "question_id": "q18"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+# Pinned to the exact versions from the working conda environment
+# (requirements_exact.txt) for the same reason as the other services.
+
+fastapi==0.141.1
+uvicorn[standard]==0.52.1
+pydantic==2.13.4
+python-dotenv==1.2.2
+jsonschema==4.26.0
+
+# Testing (services/agent-system-b/tests/)
+pytest==9.1.1
+
+# Google ADK — the actual agent framework for this service, wraps
+# app/tools.py's two deterministic tools in app/agent.py. Versions below
+# were verified installable and importable together; re-pin to whatever
+# your conda env actually resolves, same as every other requirements.txt
+# in this repo, and re-run `pytest tests/` after any version bump.
+google-adk==2.7.0
+google-genai==2.18.1

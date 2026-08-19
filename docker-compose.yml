@@ -1,0 +1,82 @@
+services:
+  vector-db:
+    image: qdrant/qdrant:latest
+    container_name: vector-db
+    ports:
+      - "6333:6333"     # REST — reachable from the host for debugging
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+  mcp-server:
+    build:
+      context: ./services/mcp-server
+    container_name: mcp-server
+    depends_on:
+      - vector-db
+    environment:
+      - DATA_DIR=/app/data
+      - QDRANT_URL=http://vector-db:6333
+      - QDRANT_COLLECTION=${QDRANT_COLLECTION:-vda5050_baseline}
+      - EMBEDDING_MODEL_NAME=${EMBEDDING_MODEL_NAME:-BAAI/bge-m3}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8001
+    volumes:
+      - ./data:/app/data
+      # Persists the downloaded embedding + reranker model weights across
+      # container recreation (docker compose down + up). Without this,
+      # every fresh container re-downloads BAAI/bge-m3 and the reranker
+      # model from Hugging Face — that's the slow download you keep
+      # re-hitting, not something re-running actually needs to repeat.
+      - hf_cache:/root/.cache/huggingface
+    ports:
+      - "8001:8001"     # published for local debugging / agent/run.py outside Docker
+    restart: unless-stopped
+
+  agent-system-a:
+    build:
+      context: ./services/agent-system-a
+    container_name: agent-system-a
+    depends_on:
+      - mcp-server
+      - agent-system-b
+    environment:
+      - DATA_DIR=/app/data
+      - MCP_SERVER_URL=http://mcp-server:8001/mcp
+      - AGENT_B_URL=http://agent-system-b:8002
+      - FRONTEND_ORIGIN=http://localhost:8080
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  agent-system-b:
+    build:
+      context: ./services/agent-system-b
+    container_name: agent-system-b
+    environment:
+      - DATA_DIR=/app/data
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8002:8002"
+    restart: unless-stopped
+
+  chatbot-ui:
+    build:
+      context: ./services/chatbot-ui
+    container_name: chatbot-ui
+    depends_on:
+      - agent-system-a
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+volumes:
+  qdrant_storage:
+  hf_cache:

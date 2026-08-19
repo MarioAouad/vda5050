@@ -1,0 +1,15 @@
+{
+  "_readme": "Used by 02_generation. reference_facts: what a faithful, correct answer must contain (checked by the judge, not string-matched). must_refuse: true means the correct behavior is an 'I don't know / not in the retrieved context' answer -- a confident wrong answer here is a faithfulness failure, not a quality one.",
+  "questions": [
+    {"id": "g01", "query": "What are the four error levels a mobile robot can report?", "reference_facts": ["WARNING", "URGENT", "CRITICAL", "FATAL"], "must_refuse": false},
+    {"id": "g02", "query": "What happens when a mobile robot receives a cancelOrder action while idle?", "reference_facts": ["NO_ORDER_TO_CANCEL warning is reported", "no active order to cancel"], "must_refuse": false},
+    {"id": "g03", "query": "What are the required fields inside a node object in the order schema?", "reference_facts": ["nodeId", "sequenceId", "released"], "must_refuse": false},
+    {"id": "g04", "query": "What severity level is the NODE_UNREACHABLE error?", "reference_facts": ["CRITICAL"], "must_refuse": false},
+    {"id": "g05", "query": "What is the maximum battery charge cycle count allowed before a VDA 5050 robot must be decommissioned?", "reference_facts": ["not specified in the VDA 5050 standard"], "must_refuse": true},
+    {"id": "g06", "query": "What connection states are defined in VDA 5050?", "reference_facts": ["ONLINE", "OFFLINE", "CONNECTIONBROKEN"], "must_refuse": false},
+    {"id": "g07", "query": "What blocking types can an action have?", "reference_facts": ["HARD", "SOFT", "NONE"], "must_refuse": false},
+    {"id": "g08", "query": "What is VDA 5050's official maximum supported MQTT message size in bytes?", "reference_facts": ["not specified", "not in the retrieved context"], "must_refuse": true},
+    {"id": "g09", "query": "What does the LOCALIZATION_ERROR error type mean?", "reference_facts": ["robot is not localized", "FATAL"], "must_refuse": false},
+    {"id": "g10", "query": "What fields are required in the connection schema?", "reference_facts": ["sequenceId", "connectionState"], "must_refuse": false}
+  ]
+}

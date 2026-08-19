@@ -1,0 +1,7 @@
+# Install into the SAME venv/conda env you already use to run mcp-server
+# and agent-system-a locally (this suite imports their code directly, same
+# pattern as the existing evaluate_multi_agent.py) -- do not create a
+# separate venv or the core.* / agent.* imports will fail.
+#
+#   pip install -r evaluation/requirements.txt
+requests==2.32.3

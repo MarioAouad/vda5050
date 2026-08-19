@@ -1,0 +1,142 @@
+{
+  "gen_backend": "ollama",
+  "judge_backend": "ollama",
+  "n_questions": 10,
+  "n_scored": 10,
+  "n_unparseable": 0,
+  "mean_faithfulness": 4.9,
+  "mean_correctness": 4.8,
+  "mean_relevance": 5.0,
+  "rows": [
+    {
+      "id": "g01",
+      "query": "What are the four error levels a mobile robot can report?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "The four error levels a mobile robot can report are:\n\n1. 'WARNING'\n2. 'URGENT'\n3. 'CRITICAL'\n4. 'FATAL'",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The system's answer only states things supported by the retrieved context and accurately reflects the reference facts."
+      }
+    },
+    {
+      "id": "g02",
+      "query": "What happens when a mobile robot receives a cancelOrder action while idle?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "The `cancelOrder` action is reported as 'FAILED'. The mobile robot reports an error of type 'NO_ORDER_TO_CANCEL' with level set to 'WARNING'. The `actionId` of the `instantAction` is passed as an `errorReference`.",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The system's answer only states information explicitly mentioned in the retrieved context and accurately describes the behavior of a mobile robot receiving a cancelOrder action while idle."
+      }
+    },
+    {
+      "id": "g03",
+      "query": "What are the required fields inside a node object in the order schema?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "The required fields inside a `node` object in the order schema are:\n\n- nodeId\n- sequenceId\n- released\n- actions",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The system's answer only states required fields supported by the retrieved context, matches the reference facts, and directly addresses the question."
+      }
+    },
+    {
+      "id": "g04",
+      "query": "What severity level is the NODE_UNREACHABLE error?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "'CRITICAL'",
+      "judge_verdict": {
+        "faithfulness": 4,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The answer only states the severity level explicitly supported by the retrieved context, matches one of the reference facts, and directly addresses the question."
+      }
+    },
+    {
+      "id": "g05",
+      "query": "What is the maximum battery charge cycle count allowed before a VDA 5050 robot must be decommissioned?",
+      "must_refuse": true,
+      "num_context_chunks": 3,
+      "answer": "I do not have that information.",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 3,
+        "relevance": 5,
+        "justification": "The answer only states things supported by the retrieved context, does not invent a number or fact, and directly addresses the question."
+      }
+    },
+    {
+      "id": "g06",
+      "query": "What connection states are defined in VDA 5050?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "Plainly: Not stated. The retrieved context does not contain information about connection states.",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The system's answer only states what is supported by the retrieved context and accurately reflects the reference facts."
+      }
+    },
+    {
+      "id": "g07",
+      "query": "What blocking types can an action have?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "According to the retrieved context, an action can have four distinct blocking types, described in Table 3:\n\nNONE\nSINGLE\nSOFT\nHARD",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The system's answer accurately states all four blocking types without adding any extra information not supported by the context."
+      }
+    },
+    {
+      "id": "g08",
+      "query": "What is VDA 5050's official maximum supported MQTT message size in bytes?",
+      "must_refuse": true,
+      "num_context_chunks": 3,
+      "answer": "The context does not contain information about the VDA 5050's official maximum supported MQTT message size in bytes.",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The answer only states what is supported by the retrieved context and correctly reflects that it does not contain information about the maximum supported MQTT message size in bytes."
+      }
+    },
+    {
+      "id": "g09",
+      "query": "What does the LOCALIZATION_ERROR error type mean?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "The \"LOCALIZATION_ERROR\" error type means that the mobile robot is not localized and therefore cannot be trusted to provide accurate position information, until localization is regained.",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The system's answer only states facts supported by the retrieved context, accurately describes the 'LOCALIZATION_ERROR' error type, and directly addresses the question without padding or drift."
+      }
+    },
+    {
+      "id": "g10",
+      "query": "What fields are required in the connection schema?",
+      "must_refuse": false,
+      "num_context_chunks": 3,
+      "answer": "There is no information about a \"connection\" schema in the retrieved context.",
+      "judge_verdict": {
+        "faithfulness": 5,
+        "correctness": 5,
+        "relevance": 5,
+        "justification": "The system's answer only states facts supported by the retrieved context, accurately matches the reference facts, and directly addresses the question asked without padding or drift."
+      }
+    }
+  ]
+}

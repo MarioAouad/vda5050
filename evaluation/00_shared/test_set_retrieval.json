@@ -1,0 +1,131 @@
+{
+  "_readme": "Ground truth is (expected_source, required_keywords), not a chunk ID — see 00_shared/metrics.py module docstring for why. expected_source is matched as a substring of the chunk's metadata['source'] path. required_keywords: a chunk counts as relevant if it contains ANY of these (case-insensitive). Each question also states which spec section it should come from, for the human-readable report / EVALUATION.md table.",
+  "questions": [
+    {
+      "id": "q01",
+      "query": "What are the four error levels a mobile robot can report and what does each one mean?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.6.5.1 Error levels",
+      "required_keywords": ["WARNING", "URGENT", "CRITICAL", "FATAL"]
+    },
+    {
+      "id": "q02",
+      "query": "What happens when a mobile robot receives a cancelOrder action while it is idle?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.1.3.2 Receiving a cancelOrder action when mobile robot is idle",
+      "required_keywords": ["cancelOrder", "idle"]
+    },
+    {
+      "id": "q03",
+      "query": "What is the MQTT topic level structure used for VDA 5050 communication?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "4.2 Topic levels",
+      "required_keywords": ["topic", "interfaceName", "manufacturer"]
+    },
+    {
+      "id": "q04",
+      "query": "What is the NODE_UNREACHABLE error type and what severity level does it have?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.6.5.4 Predefined error types",
+      "required_keywords": ["NODE_UNREACHABLE", "CRITICAL"]
+    },
+    {
+      "id": "q05",
+      "query": "What does the LOCALIZATION_ERROR error type mean and when does it clear?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.6.5.4 Predefined error types",
+      "required_keywords": ["LOCALIZATION_ERROR", "localized", "FATAL"]
+    },
+    {
+      "id": "q06",
+      "query": "How does map distribution work between fleet control and the mobile robot?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.3.1 Map distribution",
+      "required_keywords": ["map", "mapId", "mapVersion"]
+    },
+    {
+      "id": "q07",
+      "query": "What are contour-based zones and how are they defined?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.4.1.1 Contour-based zones",
+      "required_keywords": ["contour", "zone"]
+    },
+    {
+      "id": "q08",
+      "query": "What should a mobile robot do when it receives a malformed order?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.1.4.1 Mobile robot receives a malformed order",
+      "required_keywords": ["malformed", "VALIDATION_FAILURE"]
+    },
+    {
+      "id": "q09",
+      "query": "What is the difference between a WARNING and a CRITICAL error level in terms of what the robot can still do?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.6.5.1 Error levels",
+      "required_keywords": ["WARNING", "CRITICAL", "continue"]
+    },
+    {
+      "id": "q10",
+      "query": "What are the required top-level fields in the order.schema for a VDA 5050 order message?",
+      "expected_source": "order.schema",
+      "expected_section": "order.schema required fields",
+      "required_keywords": ["headerId", "orderId", "nodeId", "required"]
+    },
+    {
+      "id": "q11",
+      "query": "What fields are required inside a node object of the order schema?",
+      "expected_source": "order.schema",
+      "expected_section": "order.schema node definition",
+      "required_keywords": ["nodeId", "sequenceId", "released"]
+    },
+    {
+      "id": "q12",
+      "query": "Is sequenceId a required field in the connection schema?",
+      "expected_source": "connection.schema",
+      "expected_section": "connection.schema",
+      "required_keywords": ["sequenceId", "connectionState"]
+    },
+    {
+      "id": "q13",
+      "query": "What are the required fields for reporting the mobile robot's state in the state schema?",
+      "expected_source": "state.schema",
+      "expected_section": "state.schema required fields",
+      "required_keywords": ["headerId", "orderId", "batteryState"]
+    },
+    {
+      "id": "q14",
+      "query": "What fields does the factsheet schema use to describe the vehicle's physical characteristics?",
+      "expected_source": "factsheet.schema",
+      "expected_section": "factsheet.schema physicalParameters",
+      "required_keywords": ["physicalParameters", "speedMax", "length"]
+    },
+    {
+      "id": "q15",
+      "query": "What is defined in the instantActions schema and how does it differ from a regular order?",
+      "expected_source": "instantActions.schema",
+      "expected_section": "instantActions.schema",
+      "required_keywords": ["instantActions", "actions", "actionType"]
+    },
+    {
+      "id": "q16",
+      "query": "What are the four blocking types an action can have and what do they mean?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.2.2 Action blocking types and sequence",
+      "required_keywords": ["blockingType", "HARD", "SOFT", "NONE"]
+    },
+    {
+      "id": "q17",
+      "query": "What connection states are defined in VDA 5050 and what do they mean?",
+      "expected_source": "VDA5050_EN.md",
+      "expected_section": "6.5 Connection",
+      "required_keywords": ["ONLINE", "OFFLINE", "CONNECTIONBROKEN"]
+    },
+    {
+      "id": "q18",
+      "query": "How does the mobile robot report a zoneSet and what fields are required?",
+      "expected_source": "zoneSet.schema",
+      "expected_section": "zoneSet.schema",
+      "required_keywords": ["zoneSetId", "zones"]
+    }
+  ]
+}

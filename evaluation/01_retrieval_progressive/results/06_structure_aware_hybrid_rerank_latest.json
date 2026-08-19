@@ -1,0 +1,249 @@
+{
+  "config_name": "06_structure_aware_hybrid_rerank",
+  "hypothesis": "Does adding the cross-encoder reranker on top of hybrid retrieval improve ranking quality (NDCG specifically)? This is the INTENDED design.",
+  "retriever_kind": "hybrid_rerank",
+  "k": 3,
+  "num_chunks": 371,
+  "aggregate_metrics": {
+    "mean_precision_at_k": 0.6481,
+    "mean_recall_at_k": 0.8889,
+    "mean_mrr": 0.8611,
+    "mean_ndcg_at_k": 0.8684
+  },
+  "per_query": [
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q01",
+      "query": "What are the four error levels a mobile robot can report and what does each one mean?"
+    },
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q02",
+      "query": "What happens when a mobile robot receives a cancelOrder action while it is idle?"
+    },
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q03",
+      "query": "What is the MQTT topic level structure used for VDA 5050 communication?"
+    },
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q04",
+      "query": "What is the NODE_UNREACHABLE error type and what severity level does it have?"
+    },
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q05",
+      "query": "What does the LOCALIZATION_ERROR error type mean and when does it clear?"
+    },
+    {
+      "precision_at_k": 0.6667,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        0
+      ],
+      "question_id": "q06",
+      "query": "How does map distribution work between fleet control and the mobile robot?"
+    },
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q07",
+      "query": "What are contour-based zones and how are they defined?"
+    },
+    {
+      "precision_at_k": 0.3333,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        0,
+        0
+      ],
+      "question_id": "q08",
+      "query": "What should a mobile robot do when it receives a malformed order?"
+    },
+    {
+      "precision_at_k": 0.6667,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        0
+      ],
+      "question_id": "q09",
+      "query": "What is the difference between a WARNING and a CRITICAL error level in terms of what the robot can still do?"
+    },
+    {
+      "precision_at_k": 0.3333,
+      "recall_at_k": 1.0,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.6309,
+      "relevance_pattern": [
+        0,
+        1,
+        0
+      ],
+      "question_id": "q10",
+      "query": "What are the required top-level fields in the order.schema for a VDA 5050 order message?"
+    },
+    {
+      "precision_at_k": 0.3333,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        0,
+        0
+      ],
+      "question_id": "q11",
+      "query": "What fields are required inside a node object of the order schema?"
+    },
+    {
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "ndcg_at_k": 0.0,
+      "relevance_pattern": [
+        0,
+        0,
+        0
+      ],
+      "question_id": "q12",
+      "query": "Is sequenceId a required field in the connection schema?"
+    },
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q13",
+      "query": "What are the required fields for reporting the mobile robot's state in the state schema?"
+    },
+    {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        1
+      ],
+      "question_id": "q14",
+      "query": "What fields does the factsheet schema use to describe the vehicle's physical characteristics?"
+    },
+    {
+      "precision_at_k": 0.3333,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        0,
+        0
+      ],
+      "question_id": "q15",
+      "query": "What is defined in the instantActions schema and how does it differ from a regular order?"
+    },
+    {
+      "precision_at_k": 0.3333,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        0,
+        0
+      ],
+      "question_id": "q16",
+      "query": "What are the four blocking types an action can have and what do they mean?"
+    },
+    {
+      "precision_at_k": 0.6667,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "relevance_pattern": [
+        1,
+        1,
+        0
+      ],
+      "question_id": "q17",
+      "query": "What connection states are defined in VDA 5050 and what do they mean?"
+    },
+    {
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "ndcg_at_k": 0.0,
+      "relevance_pattern": [
+        0,
+        0,
+        0
+      ],
+      "question_id": "q18",
+      "query": "How does the mobile robot report a zoneSet and what fields are required?"
+    }
+  ]
+}
