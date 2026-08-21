@@ -1,9 +1,7 @@
 # vector-db
 
 No application code here — this is the official `qdrant/qdrant` image,
-configured in the root `docker-compose.yml`. Documented as its own
-`services/` entry to match the container table in `docs/ARCHITECTURE.md`
-and the proposal's Section 2.4, even though there's nothing to build.
+configured in the root `docker-compose.yml`. 
 
 - **Collection name:** `vda5050_baseline` (override via `QDRANT_COLLECTION`)
 - **Persistence:** a named Docker volume (`qdrant_storage`), not a bind

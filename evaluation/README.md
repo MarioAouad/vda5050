@@ -1,9 +1,5 @@
 # Evaluation suite
 
-Covers requirement 2.7 / deliverable 5.3 end to end. CLI only -- no
-Docker build/up needed for `agent-system-a` or `chatbot-ui`, and no full
-`docker compose up` needed either. See "What needs to be running" below.
-
 ## Folder order (run in this order — later ones assume earlier data exists)
 
 | Folder | What it measures | LLM calls needed? |

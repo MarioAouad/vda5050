@@ -1,9 +1,7 @@
 # mcp-server
 
 A FastMCP server exposing retrieval and document-management tools over
-streamable-HTTP, called by `agent-system-a` over the network (not spawned
-as a stdio subprocess — see `docs/ARCHITECTURE.md` for why that changed).
-Also usable directly by Cursor/Claude Code as an MCP client.
+streamable-HTTP, called by `agent-system-a` over the network.
 
 ## Tools
 

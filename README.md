@@ -14,10 +14,6 @@ not guessed at — and for validation-shaped questions, checks
 deterministically against the actual schema rather than asking a
 language model to eyeball it.
 
-Full background and how this maps to the assignment rubric:
-[`docs/PROPOSAL.md`](docs/PROPOSAL.md). Deep technical walkthrough of
-every file and decision: [`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md).
-
 ---
 
 ## Architecture
@@ -36,19 +32,13 @@ flowchart LR
     A -. "Groq (primary)<br/>Gemini (fallback)" .-> L(("LLM providers"))
 ```
 
-| Container | What it runs | Why a separate container |
-|---|---|---|
-| `agent-system-a` | LangGraph Supervisor + Protocol/Schema/Diagnostics specialists, FastAPI, SSE streaming | Assignment requirement — primary system, holds the routing/business logic |
-| `agent-system-b` | Google ADK agent wrapping two deterministic tools (schema validation, error-type lookup) | Assignment requirement — independent framework, reachable only over a real network call, not a Python import |
-| `mcp-server` | FastMCP server exposing the RAG search + document-management tools | So the same tools are callable by Agent A, by the evaluation harness, or by any future consumer, without duplicating the implementation |
-| `vector-db` | Qdrant, standalone | Assignment-recommended vector database |
-| `chatbot-ui` | Static HTML/CSS/JS frontend | Simplest thing that lets a human actually use the system without a build step |
-
-Every hop between `agent-system-a` and `agent-system-b` is a real HTTP
-call across the Docker network — not a function call — which is what the
-assignment is actually testing with the "two independent agent systems"
-requirement. Full request-by-request trace of two real conversations:
-[`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md) Part 8.
+| Container | What it runs |
+|---|---|
+| `agent-system-a` | LangGraph Supervisor + Protocol/Schema/Diagnostics specialists, FastAPI, SSE streaming |
+| `agent-system-b` | Google ADK agent wrapping two deterministic tools (schema validation, error-type lookup) |
+| `mcp-server` | FastMCP server exposing the RAG search + document-management tools |
+| `vector-db` | Qdrant, standalone |
+| `chatbot-ui` | Static HTML/CSS/JS frontend |
 
 ---
 
@@ -56,8 +46,8 @@ requirement. Full request-by-request trace of two real conversations:
 
 ```bash
 git clone <this-repo>
-cd vda5050-fleet-operations-system
-cp .env.example .env      # fill in GROQ_API_KEY and GOOGLE_API_KEY (both free-tier)
+cd vda5050
+cp .env.example .env      # fill in GROQ_API_KEY and GOOGLE_API_KEY
 docker compose up --build
 ```
 
@@ -70,19 +60,6 @@ docker compose exec mcp-server python -m core.run_ingestion
 
 Then open **`http://localhost:8080`**.
 
-That's the whole setup. No other manual steps, no seed data to copy in
-by hand — `data/raw_docs/` (the spec + schemas) is committed to the repo
-and gets mounted into `mcp-server` automatically by `docker-compose.yml`.
-
-This is the Docker Compose deployment method. A second, manual method
-(no Compose — raw `docker network`/`docker build`/`docker run` commands)
-also exists, for the assignment's two-methods requirement:
-[`docs/DOCKER_MANUAL_METHOD.md`](docs/DOCKER_MANUAL_METHOD.md) (commands
-+ how to test it) and
-[`docs/DOCKER_EXPLAINED.md`](docs/DOCKER_EXPLAINED.md) (the concepts
-behind it — images vs. containers, why the network has to be created
-explicitly, volumes, etc.).
-
 ### Verifying it's actually working
 
 ```bash
@@ -94,14 +71,6 @@ docker compose logs mcp-server | tail -20  # should show "Hybrid Retriever ready
 Then ask the UI something like *"What does NODE_UNREACHABLE mean?"* — a
 grounded answer citing the spec's error-type table means the whole chain
 (UI → Agent A → MCP → Qdrant → LLM) is working end to end.
-
-### Running the evaluation suite
-
-Not needed to use the system, but if you want to reproduce the numbers
-in [`docs/EVALUATION.md`](docs/EVALUATION.md) yourself:
-see [`evaluation/README.md`](evaluation/README.md) — CLI only, doesn't
-need the full `docker compose up`, and the retrieval-only parts make
-zero LLM calls.
 
 ---
 
@@ -127,50 +96,24 @@ zero LLM calls.
 
 ## Technical decisions and justifications
 
-The full reference table (every real decision, alternatives considered,
-why chosen, and the actual cost paid) is
-[`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md) Part 9. The five most
-likely to come up in a defense:
-
 - **Structure-aware chunking (Markdown headers + JSON-schema
   parent-child splitting) instead of one generic character-count
   splitter.** Measured, not assumed: it beats every naive fixed-size
-  configuration tested on Precision@3, using 40-60% fewer chunks. Full
-  seven-configuration comparison: [`docs/EVALUATION.md`](docs/EVALUATION.md) §2.
+  configuration tested on Precision@3, using 40-60% fewer chunks.
 - **`BAAI/bge-m3` as the embedding model** — chosen specifically because
-  it's multilingual, which matters here: the system has already had (and
-  fixed) a real cross-language bug, and the agent evaluation suite
-  includes a French-language test case that round-trips correctly
-  through the real graph.
-- **Hybrid (BM25 + dense) retrieval + cross-encoder reranking as the
-  intended retrieval design** — measurably the best-performing
-  configuration in `docs/EVALUATION.md` §2, and the reason it's phrased
-  as "intended" rather than just "the design": a later correctness fix
-  (making per-conversation document uploads discoverable) accidentally
-  means this pipeline isn't what's actually served in production today.
-  That trade-off — costs and all — is documented, not hidden: see "Known
-  limitations" below and `docs/PROJECT_GUIDE.md` Part 3.5.
+  it's multilingual.
+- **Hybrid (BM25 + dense) retrieval + cross-encoder reranking as retrieval design** measurably the best-performing
+  configuration in `docs/EVALUATION.md`.
 - **Two independent agent systems on different frameworks (LangGraph +
-  Google ADK), talking over a real HTTP call** — the assignment's core
-  architecture requirement. Agent System B's job (deterministic
-  validation/lookup) is also architecturally distinct enough from Agent
-  System A's job (open-ended retrieval/conversation) that the split has
-  real merit beyond just satisfying the requirement: A degrades
+  Google ADK), talking over a real HTTP call**. Agent System B's job (deterministic
+  validation/lookup) is also architecturally distinct from Agent
+  System A's job (open-ended retrieval/conversation). A degrades
   gracefully instead of crashing if B is down.
 - **Step-level SSE streaming, not token-level** — the ReAct tool-calling
   loop needs each LLM call's complete response before it can check
-  whether a tool should be called; restructuring the whole loop to
-  support token streaming was judged too risky this close to the
-  deadline for a requirement step-level streaming already satisfies.
+  whether a tool should be called.
 
 ---
-
-## Testing
-
-Full manual test pass (every endpoint, every guardrail case, multilingual,
-upload/delete/isolation, the evaluation suite, both Docker methods):
-[`TEST_CHECKLIST.md`](TEST_CHECKLIST.md). Five-minute live demo script:
-[`DEMO.md`](DEMO.md).
 
 ## Evaluation
 
@@ -185,19 +128,12 @@ every number: [`evaluation/*/results/`](evaluation/).
 
 ## Known limitations
 
-Stated plainly, on purpose — the assignment explicitly rewards this over
-hiding gaps. Full list with more detail:
-[`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md) Part 10.
-
 1. **The hybrid+reranked retrieval pipeline — the better-performing
-   configuration per `docs/EVALUATION.md` §2 — isn't what's actually
+   configuration per `docs/EVALUATION.md` — isn't what's actually
    served in production.** A correctness fix (making per-conversation
    uploads discoverable) requires passing `conversation_id` on every
    search, which routes to a simpler dense-only path. Measured cost:
-   Precision@3 drops from 0.648 to 0.574. See
-   [`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md) Part 3.5 for the
-   full trade-off and the scoped fix that was deliberately deferred past
-   this deadline.
+   Precision@3 drops from 0.648 to 0.574.
 2. **Deleting a document doesn't erase a conversation's memory of it.**
    Deletion itself (removing chunks from Qdrant) works correctly — but a
    conversation that already discussed that content keeps its own
@@ -208,18 +144,12 @@ hiding gaps. Full list with more detail:
    decisions" above.
 5. **The small router model occasionally misroutes** grammatically
    unusual or genuinely dual-intent questions — see `docs/EVALUATION.md`
-   §4 for a concrete, measured example (`a03`) and why it's more a test
+   for a concrete, measured example (`a03`) and why it's more a test
    labeling nuance than a routing bug in that specific case.
-6. **Free-tier LLM rate limits are a real constraint**, not just a
-   theoretical one — the evaluation suite's generation-eval step
-   deliberately defaults to a local Ollama model specifically to work
-   around this. See [`evaluation/README.md`](evaluation/README.md).
-7. **`InputGuard`/`OutputGuard` are shallow, pattern-based checks**, not
+6. **`InputGuard`/`OutputGuard` are shallow, pattern-based checks**, not
    a comprehensive content-safety system — an appropriate scope for an
    internal technical assistant, described accurately rather than
    oversold.
-8. **No HTTPS or authentication between services** — fine for a local
-   `docker-compose` demo; would need addressing before real deployment.
 
 ---
 
@@ -240,10 +170,3 @@ hiding gaps. Full list with more detail:
 
 Each service has its own README with standalone (non-Docker) run
 instructions and its endpoint list.
-
----
-
-## Credits
-
-Built at inmind.academy (by inmind.ai) under Mr. Dani AZZAM, on the VDA
-5050 standard.
